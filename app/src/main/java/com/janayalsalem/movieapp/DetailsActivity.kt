@@ -21,6 +21,7 @@ import com.janayalsalem.movieapp.model.getMovies
 import com.janayalsalem.movieapp.ui.theme.ui.theme.MovieAppTheme
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.navigation.NavController
 import com.janayalsalem.movieapp.model.Movie
 
 
@@ -29,13 +30,13 @@ import com.janayalsalem.movieapp.model.Movie
 @Composable
 fun DefaultPreview2() {
     MovieAppTheme {
-        DetailsScreen("tt0848228")
+//        DetailsScreen("tt0848228")
     }
 }
 
 @ExperimentalAnimationApi
 @Composable
-fun DetailsScreen(movieId: String?) {
+fun DetailsScreen(navController: NavController,movieId: String?) {
     val newMovieList = getMovies().filter { movie ->
         movie.id == movieId
     }
@@ -47,7 +48,7 @@ fun DetailsScreen(movieId: String?) {
                     contentDescription ="Arrow Back",
                     modifier = Modifier.clickable {
                         // back button
-//                        navController.popBackStack()
+                        navController.popBackStack()
                     })
                 Spacer(modifier = Modifier.width(100.dp))
 
@@ -79,12 +80,12 @@ fun DetailsScreen(movieId: String?) {
 
 @Composable
 private fun HorizontalScrollableImageView(newMovieList: List<Movie>) {
-    LazyRow {
-        items(newMovieList[0].images) { image ->
-            Card(modifier = Modifier.padding(12.dp).size(240.dp), elevation = 5.dp) {
-                Image(painter = rememberImagePainter(data = image), contentDescription = "Movie Poster")
-
-            }
-        }
-    }
+//    LazyRow {
+//        items(newMovieList[0].images) { image ->
+//            Card(modifier = Modifier.padding(12.dp).size(240.dp), elevation = 5.dp) {
+//                Image(painter = rememberImagePainter(data = image), contentDescription = "Movie Poster")
+//
+//            }
+//        }
+//    }
 }

@@ -32,10 +32,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.janayalsalem.movieapp.model.Movie
 import com.janayalsalem.movieapp.model.getMovies
+import com.janayalsalem.movieapp.navagation.MovieNavigation
+import com.janayalsalem.movieapp.navagation.MovieScreens
 import com.janayalsalem.movieapp.ui.theme.MovieAppTheme
 
 
@@ -45,7 +48,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             setContent {
                 MyApp {
-                    Content()
+//                    Content()
+                    MovieNavigation()
                 }
             }
         }
@@ -62,19 +66,18 @@ fun MyApp(content: @Composable () -> Unit) {
 
 
 @Composable
-fun Content() {
+fun Content(navController: NavController) {
     // top
     Scaffold(topBar = { TopAppBar(backgroundColor = Color.Gray, elevation = 5.dp) { Text(text = "Movies") } })
     {
         // body [Movies List]
-        MainContent()
-//        Text(text = "Hello")
+        MainContent(navController)
     }
 }
 
 
 @Composable
-fun MainContent() {
+fun MainContent(navController: NavController) {
 
     val ListOfMovie = getMovies()
 
@@ -82,7 +85,10 @@ fun MainContent() {
         Column(modifier = Modifier.padding(12.dp)) {
             LazyColumn {
                 items(items = ListOfMovie){
-                    MovieList(it)
+                    MovieList(it){ movie ->
+                        navController.navigate(route = MovieScreens.DetailsScreen.name+"/$movie")
+
+                    }
                 }
             }
         }
@@ -96,8 +102,7 @@ fun MovieList(movieItem: Movie,onItemClick: (String) -> Unit = {}) {
     Card(modifier = Modifier
         .padding(4.dp)
         .fillMaxWidth()
-        //onItemClick(movie.id)
-        .clickable { },
+        .clickable { onItemClick(movieItem.id) },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = 6.dp) {
         Row(verticalAlignment = Alignment.CenterVertically,
@@ -174,6 +179,6 @@ fun MovieList(movieItem: Movie,onItemClick: (String) -> Unit = {}) {
 @Composable
 fun DefaultPreview() {
     MyApp {
-        Content()
+//        Content()
     }
 }
