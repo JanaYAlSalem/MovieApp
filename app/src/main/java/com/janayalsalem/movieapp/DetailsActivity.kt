@@ -80,12 +80,12 @@ fun DetailsScreen(navController: NavController,movieId: String?) {
 
 @Composable
 private fun HorizontalScrollableImageView(newMovieList: List<Movie>) {
-//    LazyRow {
-//        items(newMovieList[0].images) { image ->
-//            Card(modifier = Modifier.padding(12.dp).size(240.dp), elevation = 5.dp) {
-//                Image(painter = rememberImagePainter(data = image), contentDescription = "Movie Poster")
-//
-//            }
-//        }
-//    }
+    LazyRow {
+        items(newMovieList[0].images) { image ->
+            Card(modifier = Modifier.padding(12.dp).size(240.dp), elevation = 5.dp) {
+                Image(painter = rememberImagePainter(data = image), contentDescription = "Movie Poster")
+
+            }
+        }
+    }
 }
